@@ -15,6 +15,8 @@ func TestName(t *testing.T) {
 		{"https://github.com/XAMPPRocky/tokei/releases/download/v12.1.2/tokei-mips64-unknown-linux-gnuabi64.tar.gz", "tokei"},
 		{"https://github.com/XAMPPRocky/tokei/releases/download/v12.1.2/tokei-x86_64-unknown-linux-gnu.tar.gz", "tokei"},
 		{"https://github.com/boyter/scc/releases/download/v3.0.0/scc-3.0.0-x86_64-unknown-linux.zip", "scc"},
+		{"https://github.com/goreleaser/goreleaser/releases/download/v0.177.0/goreleaser_Linux_x86_64.tar.gz", "goreleaser"},
+		{"https://gotest-release.s3.amazonaws.com/gotest_linux", "gotest"},
 	}
 
 	for _, tt := range cases {

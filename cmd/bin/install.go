@@ -35,7 +35,7 @@ func install(url string, config Config) error {
 	if err != nil {
 		return err
 	}
-	// Rewind after download so reading file will be from the start
+	// Rewind after download to extract from the start
 	_, err = tmp.Seek(0, io.SeekStart)
 	if err != nil {
 		return errors.Wrap(err, "failed to rewind temp file")
@@ -53,10 +53,19 @@ func install(url string, config Config) error {
 		return errors.Wrap(err, "failed to discover matcher")
 	}
 
+	// FIXME: Reopen file before extracting
+	// Passing tmp even with rewinding will cause error in gzip.NewReader - for
+	// some reason it reads from 0x3000 and so can't validate gzip header.
+	tmp.Close()
+	tmp, err = os.Open(tmp.Name()) // Name() is still valid after Close()
+	if err != nil {
+		return errors.Wrap(err, "failed to reopen tmp file")
+	}
+
 	// Extract the binary
 	r, err := extract.Extract(tmp, matcher)
 	if err != nil {
-		log.Fatal(err)
+		return errors.Wrap(err, "failed to extract binary")
 	}
 
 	// Write the binary into the target filepath
