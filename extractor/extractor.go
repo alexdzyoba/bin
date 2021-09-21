@@ -11,6 +11,7 @@ import (
 	"github.com/h2non/filetype/matchers"
 	"github.com/pkg/errors"
 
+	"github.com/alexdzyoba/bin/extractor/direct"
 	"github.com/alexdzyoba/bin/extractor/targz"
 	"github.com/alexdzyoba/bin/extractor/zip"
 	"github.com/alexdzyoba/bin/matcher"
@@ -53,6 +54,8 @@ func Discover(f *os.File) (Extractor, error) {
 		}
 
 		return new(targz.Archive), nil
+	case matchers.TypeElf: // matchers.TypeMachO
+		return new(direct.File), nil
 	default:
 		return nil, fmt.Errorf("unsupported filetype %v", typ)
 	}

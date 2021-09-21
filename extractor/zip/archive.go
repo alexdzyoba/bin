@@ -8,8 +8,9 @@ import (
 	"log"
 	"os"
 
-	"github.com/alexdzyoba/bin/matcher"
 	"github.com/pkg/errors"
+
+	"github.com/alexdzyoba/bin/matcher"
 )
 
 type Archive struct{}
