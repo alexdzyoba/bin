@@ -14,7 +14,7 @@ import (
 	"github.com/pkg/errors"
 
 	"github.com/alexdzyoba/bin/extractor"
-	"github.com/alexdzyoba/bin/matcher"
+	"github.com/alexdzyoba/bin/target"
 )
 
 func install(url string, config Config) error {
@@ -48,7 +48,7 @@ func install(url string, config Config) error {
 	}
 
 	// Determine how we match file inside archive from platform
-	matcher, err := matcher.Discover()
+	target, err := target.Discover()
 	if err != nil {
 		return errors.Wrap(err, "failed to discover matcher")
 	}
@@ -63,7 +63,7 @@ func install(url string, config Config) error {
 	}
 
 	// Extract the binary
-	r, err := extract.Extract(tmp, matcher)
+	r, err := extract.Extract(tmp, target)
 	if err != nil {
 		return errors.Wrap(err, "failed to extract binary")
 	}

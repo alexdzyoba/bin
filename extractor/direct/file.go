@@ -8,12 +8,12 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/alexdzyoba/bin/matcher"
+	"github.com/alexdzyoba/bin/target"
 )
 
 type File struct{}
 
-func (f *File) Extract(source *os.File, matcher matcher.Matcher) (*bytes.Reader, error) {
+func (f *File) Extract(source *os.File, matcher target.Matcher) (*bytes.Reader, error) {
 	b, err := io.ReadAll(source)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to read file")

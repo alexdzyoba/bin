@@ -10,12 +10,12 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/alexdzyoba/bin/matcher"
+	"github.com/alexdzyoba/bin/target"
 )
 
 type Archive struct{}
 
-func (a *Archive) Extract(source *os.File, matcher matcher.Matcher) (*bytes.Reader, error) {
+func (a *Archive) Extract(source *os.File, matcher target.Matcher) (*bytes.Reader, error) {
 	gr, err := gzip.NewReader(source)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to create gzip reader")

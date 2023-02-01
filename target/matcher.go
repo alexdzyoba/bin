@@ -1,11 +1,11 @@
-package matcher
+package target
 
 import (
 	"bytes"
 	"fmt"
 	"runtime"
 
-	"github.com/alexdzyoba/bin/matcher/linux"
+	"github.com/alexdzyoba/bin/target/linux"
 )
 
 const (

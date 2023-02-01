@@ -14,11 +14,11 @@ import (
 	"github.com/alexdzyoba/bin/extractor/direct"
 	"github.com/alexdzyoba/bin/extractor/targz"
 	"github.com/alexdzyoba/bin/extractor/zip"
-	"github.com/alexdzyoba/bin/matcher"
+	"github.com/alexdzyoba/bin/target"
 )
 
 type Extractor interface {
-	Extract(*os.File, matcher.Matcher) (*bytes.Reader, error)
+	Extract(*os.File, target.Matcher) (*bytes.Reader, error)
 }
 
 // Discover determine extractor by source file type
