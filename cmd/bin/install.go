@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"os"
 	"path"
@@ -12,6 +11,7 @@ import (
 	"strings"
 
 	"github.com/pkg/errors"
+	"github.com/rs/zerolog/log"
 
 	"github.com/alexdzyoba/bin/extractor"
 	"github.com/alexdzyoba/bin/target"
@@ -23,6 +23,8 @@ func install(url string, config Config) error {
 	if filename == "" {
 		return fmt.Errorf("failed to parse filename from URL %v\nTry to override it with --target.filename, -o options", url)
 	}
+
+	log.Debug().Str("url", url).Msgf("installing '%s'", filename)
 
 	// Create temp file to download from url
 	tmp, err := os.CreateTemp("", filename)
@@ -76,8 +78,12 @@ func install(url string, config Config) error {
 	filepath := path.Join(config.Target.Dir, filename)
 	err = write(r, filepath)
 	if err != nil {
-		log.Fatal(err)
+		return errors.Wrapf(err, "failed to write to '%s'", filepath)
 	}
+
+	log.Info().
+		Str("target_dir", config.Target.Dir).
+		Msgf("installed '%s'", filename)
 
 	return nil
 }
